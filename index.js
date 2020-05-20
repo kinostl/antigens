@@ -4,51 +4,86 @@ function output(input){
 	console.log(input)
 }
 
-function newNavi(name){
-	/** Mind, Body, and Soul can be skipped due to their math **/
+function newNavi(name, {body, soul, mind}){
+	/**Stats only because fuck.**/
 	return {
 		name,
-		sense: 0, strength: 0, charm: 0,
-		info: 0, speed: 0, bravery: 0,
-		coding: 0, stamina: 0, affinity: 0,
-		hp: 0,
+		mind, body, soul,
+		hp: body*3,
+		folder: mind*2,
 	}
 }
 
-function statNavi(navi){
-	navi.hp = calculateHP()
-	// element nonsense, color system from the "RPG for AI"
-}
-
-function roll(skill, difficulty){
+function doRoll(pool_size, difficulty){
 	let rolls=[]
 	let hits=0
-	for(let i=0;i<skill;i++){
+	for(let i=0;i<pool_size;i++){
 		let roll = _.random(1,6)
-		rolls.push(roll)
 		if(roll > difficulty){
+			rolls.push(`${roll} ✔️ `)
 			hits++
+		}else{
+			rolls.push(`${roll} ❌`)
 		}
 	}
 	return {rolls, hits}
 }
 
-let p1=0
-let p2=0
-while(p1 === p2){
-	let p1_roll = roll(6,5)
-	let p2_roll = roll(1,2)
-	console.log(`Player 1 [${p1_roll.rolls.join(',')}] - ${p1_roll.hits}`)
-	console.log(`Player 2 [${p2_roll.rolls.join(',')}] - ${p2_roll.hits}`)
+function getActions(navi, targets){
+	/**actions**/
+	//Swap Locations
+	//Use Chip
+	//Mind Attack
+	//Body Attack
+	//Soul Attack
+	//Full Defend (Stone Body. 1 Damage Max Taken)
+	let filteredTargets = _.without(targets,navi)
+	let target = _.sample(filteredTargets)
+	let roll = doRoll(navi.body, 5)
+	let action = "attacks"
+
+	return {navi, target, action, roll}
+}
+
+let navis=[
+	newNavi('Pone', {body: 3, soul: 2, mind: 1}),
+	newNavi('Ptwo', {body: 1, soul: 2, mind: 3}),
+]
+
+const refreshActions = (navis)=>navis.map((navi)=>getActions(navi, navis))
+let actions=refreshActions(navis)
+let winner=null
+
+while(!winner){
+	let resolutions = {}
+	actions.forEach((action)=>{
+		console.log(`${action.navi.name} ${action.action} ${action.target.name} for ${action.roll.hits}. [${action.roll.rolls}]`)
+		let targetId=_.indexOf(navis,action.target)
+		if(resolutions[targetId]){
+			resolutions[targetId].push(action)
+		}else{
+			resolutions[targetId]=[action]
+		}
+	})
 	console.log('- - -')
-	p1=p1_roll.hits
-	p2=p2_roll.hits
+	//resolve actions here
+	_.forEach(resolutions,(resActs, key)=>{
+		resActs.forEach((resAct)=>{
+			if(resAct.action==="attacks"){
+				navis[key].hp = navis[key].hp - resAct.roll.hits
+			}
+		})
+	})
+	navis = navis.filter((n)=>n.hp>0)
+
+	if(navis.length > 1){
+		actions=refreshActions(navis)
+	}else{
+		winner = navis[0]
+	}
 }
-if(p1 > p2){
-	console.log('Player 1 Wins')
-}else{
-	console.log('Player 2 Wins')
-}
+console.log(`${winner.name} wins!`)
+
 
 /**
  * Gameplay loop is that the navis bonk each other like Chao in Chao Fight.
@@ -56,10 +91,10 @@ if(p1 > p2){
  *
  * Players can customize their PET so that NetNavis prefer certain rolls, chips, dodging, and parrying
  * Movement does not require rolling. 
- * High Speed Stat goes first
+ * Highest Body Stat goes first
  *
  * StraightForward Chips : Everything in Starter
- * StraightForward NCPs : Stat+1, Skill+1, Cust+3, HP+4, RedundantArray
+ * StraightForward NCPs : Stat+1, Cust+3, HP+4, RedundantArray, GoFirst(NCP Specific to this)
  *
  * Chips might have elements in the form of Color
  * Control allows having Elemental attacks
