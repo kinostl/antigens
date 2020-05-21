@@ -55,6 +55,8 @@ let navis=[
 	newNavi('Beepo', {body: 1, soul: 2, mind: 3}),
 ]
 
+console.log(navis.reduce((acc, navi)=>`${acc} [${navi.name} ${navi.hp}]`,''))
+console.log('- - -')
 const refreshActions = (navis)=>navis.map((navi)=>getActions(navi, navis))
 let actions=refreshActions(navis)
 let winner=null
@@ -70,7 +72,6 @@ while(true){
 			resolutions[targetId]=[action]
 		}
 	})
-	console.log('- - -')
 	if(resolutions){
 		_.forEach(resolutions,(resActs, key)=>{
 			resActs.forEach((resAct)=>{
@@ -80,6 +81,8 @@ while(true){
 			})
 		})
 	}
+	console.log(navis.reduce((acc, navi)=>`${acc} [${navi.name} ${navi.hp}]`,''))
+	console.log('- - -')
 	navis = navis.filter((n)=>n.hp>0)
 
 	if(navis.length > 1){
