@@ -37,24 +37,29 @@ function getActions(navi, targets){
 	//Body Attack
 	//Soul Attack
 	//Full Defend (Stone Body. 1 Damage Max Taken)
+	let rollStat = _.sample([
+		navi.body*2,
+		navi.mind*2,
+		navi.soul*2
+	])
 	let filteredTargets = _.without(targets,navi)
 	let target = _.sample(filteredTargets)
-	let roll = doRoll(navi.body, 5)
+	let roll = doRoll(rollStat, 4)
 	let action = "attacks"
 
 	return {navi, target, action, roll}
 }
 
 let navis=[
-	newNavi('Pone', {body: 3, soul: 2, mind: 1}),
-	newNavi('Ptwo', {body: 1, soul: 2, mind: 3}),
+	newNavi('Phu King', {body: 3, soul: 2, mind: 1}),
+	newNavi('Beepo', {body: 1, soul: 2, mind: 3}),
 ]
 
 const refreshActions = (navis)=>navis.map((navi)=>getActions(navi, navis))
 let actions=refreshActions(navis)
 let winner=null
 
-while(!winner){
+while(true){
 	let resolutions = {}
 	actions.forEach((action)=>{
 		console.log(`${action.navi.name} ${action.action} ${action.target.name} for ${action.roll.hits}. [${action.roll.rolls}]`)
@@ -66,23 +71,27 @@ while(!winner){
 		}
 	})
 	console.log('- - -')
-	//resolve actions here
-	_.forEach(resolutions,(resActs, key)=>{
-		resActs.forEach((resAct)=>{
-			if(resAct.action==="attacks"){
-				navis[key].hp = navis[key].hp - resAct.roll.hits
-			}
+	if(resolutions){
+		_.forEach(resolutions,(resActs, key)=>{
+			resActs.forEach((resAct)=>{
+				if(resAct.action==="attacks"){
+					navis[key].hp = navis[key].hp - resAct.roll.hits
+				}
+			})
 		})
-	})
+	}
 	navis = navis.filter((n)=>n.hp>0)
 
 	if(navis.length > 1){
 		actions=refreshActions(navis)
+	}else if(navis.length > 0){
+		console.log(`${navis[0].name} wins!`)
+		break;
 	}else{
-		winner = navis[0]
+		console.log('Its a tie!')
+		break;
 	}
 }
-console.log(`${winner.name} wins!`)
 
 
 /**
