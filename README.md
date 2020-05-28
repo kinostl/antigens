@@ -10,11 +10,19 @@ This is built in an entity style to help with organization and allow for an elem
 
 A 2D collection of Panels receiving actions from a contained AntiGen to use against Panels. Every contestant has two panels with their color.
 
+## Panels
+
+Contain the AntiGens and pass along the results of received actions to their contained AntiGen
+
 ## AntiGens
 
 The Battle Programs that reside inside of Panels, and are able to transfer between them using Transport actions. Every round they randomly choose an action and execute it.
 
-### Actions
+### NCPs
+
+Effect the AntiGen in specific ways. Stat increases, Random Action preference modifiers, etc.
+
+## Actions
 
 Commands that are bubbled up to the Panel the AntiGen is currently contained in. Very often have random results.
 
@@ -34,11 +42,5 @@ Ensures any attack commands they receive have a max damage of 1 each.
 
 Able to generate a specific Action on the AntiGen's behalf. Usually with secondary effects or specific results.
 
-### NCPs
 
-Effect the AntiGen in specific ways. Stat increases, Random Action preference modifiers, etc.
-
-## Panels
-
-Contain the AntiGens and pass along the results of received actions to their contained AntiGen
 
