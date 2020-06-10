@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Button, Section, Container, Hero, Heading } from 'react-bulma-components';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Hero size="fullheight" color="light" >
+        <Hero.Body>
+          <Container>
+            <p className="has-text-centered">
+              <Heading>AntiGens</Heading>
+              <Heading subtitle size={3}>
+                An A-Life inspired system for Discord servers!
+              </Heading>
+              <Button color="primary">Login with Discord</Button>
+            </p>
+          </Container>
+        </Hero.Body>
+      </Hero>
     </div>
   );
 }
