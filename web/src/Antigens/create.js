@@ -17,15 +17,18 @@ function App() {
   const [stats, setStats] = useState([
     {
       'stat': 'Mind',
-      'color': '#3298dc'
+      'color': '#3298dc',
+      'score': 3
     },
     {
       'stat': 'Body',
-      'color': '#f14668'
+      'color': '#f14668',
+      'score': 2
     },
     {
       'stat': 'Soul',
-      'color': '#48c774'
+      'color': '#48c774',
+      'score': 1
     }
   ])
   return (
@@ -48,9 +51,14 @@ function App() {
                     if (!res.destination) {
                       return;
                     }
+                    let newStats = arrayMove(stats, res.source.index, res.destination.index);
+                    newStats = newStats.map((curr, index)=>({
+                      ...curr,
+                      score: 3-index
+                    }))
 
                     setStats(
-                      arrayMove(stats, res.source.index, res.destination.index)
+                      newStats
                     )
                   }}>
                     <Droppable droppableId="droppable">
