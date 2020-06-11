@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Home from './Home';
 import Landing from './Landing';
+import CreateAntigen from './Antigens/create';
 
 function SwitchMenu() {
   const [menuIsActive, toggleMenuIsActive] = useState(false);
@@ -25,6 +26,9 @@ function SwitchMenu() {
         <Navbar.Burger onClick={() => toggleMenuIsActive(!menuIsActive)} />
       </Navbar.Brand>
       <Navbar.Menu className={menuIsActive ? 'is-active' : ''}>
+        <Navbar.Item href="#">
+          <Link to="/antigens/create">Antigens</Link>
+        </Navbar.Item>
         <Navbar.Container position="end">
           <Navbar.Item href="#">
             <Link to="/">Log Out</Link>
@@ -42,6 +46,10 @@ function SwitchMenu() {
       <Route exact path="/home">
         {navBar}
         <Home />
+      </Route>
+      <Route exact path="/antigens/create">
+        {navBar}
+        <CreateAntigen />
       </Route>
     </Switch>
   )
