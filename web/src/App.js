@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Section, Container, Hero, Heading, Navbar } from 'react-bulma-components';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -57,7 +57,7 @@ function SwitchMenu() {
 function App() {
 
   return (
-    <Router>
+    <Router basename="/">
       <SwitchMenu />
     </Router>
   );
