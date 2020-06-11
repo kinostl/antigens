@@ -3,6 +3,7 @@ import {
   Button,
   Section,
   Container,
+  Box,
   Hero,
   Heading,
   Form
@@ -11,7 +12,20 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import arrayMove from 'array-move';
 
 function App() {
-  const [stats, setStats] = useState(['Body', 'Mind', 'Soul'])
+  const [stats, setStats] = useState([
+    {
+      'stat': 'Body',
+      'color': '#f14668'
+    },
+    {
+      'stat': 'Mind',
+      'color': '#3298dc'
+    },
+    {
+      'stat': 'Soul',
+      'color': '#48c774'
+    }
+  ])
   return (
     <div>
       <Section>
@@ -42,14 +56,20 @@ function App() {
                       ref={provided.innerRef}
                     >
                       {stats.map((item, index) => (
-                        <Draggable key={item} draggableId={item} index={index}>
+                        <Draggable key={item.stat} draggableId={item.stat} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                             >
-                              {item}
+                              <Box
+                                style={{
+                                  backgroundColor: item.color,
+                                  color:'white'
+                                }}>
+                                {item.stat}
+                              </Box>
                             </div>
                           )}
                         </Draggable>
