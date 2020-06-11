@@ -1,23 +1,57 @@
 import React from 'react';
-import { Button, Section, Container, Hero, Heading } from 'react-bulma-components';
+import { useState } from 'react';
+import { Button, Section, Container, Hero, Heading, Navbar } from 'react-bulma-components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useLocation
+} from "react-router-dom";
+import Home from './Home';
+import Landing from './Landing';
 
-function App() {
+function SwitchMenu() {
+  const [menuIsActive, toggleMenuIsActive] = useState(false);
+  let location = useLocation();
+  React.useEffect(() => toggleMenuIsActive(false), [location]);
+
+  let navBar = (
+    <Navbar>
+      <Navbar.Brand>
+        <Navbar.Item>
+          <Link to="/home">Home</Link>
+        </Navbar.Item>
+        <Navbar.Burger onClick={() => toggleMenuIsActive(!menuIsActive)} />
+      </Navbar.Brand>
+      <Navbar.Menu className={menuIsActive ? 'is-active' : ''}>
+        <Navbar.Container position="end">
+          <Navbar.Item href="#">
+            <Link to="/">Log Out</Link>
+          </Navbar.Item>
+        </Navbar.Container>
+      </Navbar.Menu>
+    </Navbar>
+  )
+
   return (
-    <div>
-      <Hero size="fullheight" color="light" >
-        <Hero.Body>
-          <Container>
-            <p className="has-text-centered">
-              <Heading>AntiGens</Heading>
-              <Heading subtitle size={3}>
-                An A-Life inspired system for Discord servers!
-              </Heading>
-              <Button color="primary">Login with Discord</Button>
-            </p>
-          </Container>
-        </Hero.Body>
-      </Hero>
-    </div>
+    <Switch>
+      <Route exact path="/">
+        <Landing />
+      </Route>
+      <Route exact path="/home">
+        {navBar}
+        <Home />
+      </Route>
+    </Switch>
+  )
+}
+function App() {
+
+  return (
+    <Router>
+      <SwitchMenu />
+    </Router>
   );
 }
 
