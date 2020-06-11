@@ -18,19 +18,21 @@ function App() {
     {
       'stat': 'Mind',
       'color': '#3298dc',
-      'score': 3
     },
     {
       'stat': 'Body',
       'color': '#f14668',
-      'score': 2
     },
     {
       'stat': 'Soul',
       'color': '#48c774',
-      'score': 1
     }
   ])
+
+  const [calcs, setCalcs] = useState({
+    mind: 3, body: 2, soul: 1,
+    folder: 6, health: 6, capacity: 2
+  })
   return (
     <div>
       <Section>
@@ -52,14 +54,25 @@ function App() {
                       return;
                     }
                     let newStats = arrayMove(stats, res.source.index, res.destination.index);
-                    newStats = newStats.map((curr, index)=>({
-                      ...curr,
-                      score: 3-index
-                    }))
+                    let newCalcs=newStats.reduce((acc, curr, idx)=>{
+                      if(curr.stat==='Body'){
+                        acc.body = 3-idx;
+                        acc.health = acc.body*3;
+                      }
+                      if(curr.stat==='Mind'){
+                        acc.mind = 3-idx;
+                        acc.folder = acc.mind*2;
+                      }
+                      if(curr.stat==='Soul'){
+                        acc.soul = 3-idx;
+                        acc.capacity = acc.soul*2;
+                      }
+                      return acc
+                    },{})
 
-                    setStats(
-                      newStats
-                    )
+
+                    setStats(newStats)
+                    setCalcs(newCalcs)
                   }}>
                     <Droppable droppableId="droppable">
                       {(provided, snapshot) => (
@@ -97,14 +110,18 @@ function App() {
             <Columns.Column>
               <Form.Label>Scores</Form.Label>
               <Content>
-                Stuff stuff
+                <p><strong>Mind</strong> {calcs.mind}</p>
+                <p><strong>Body</strong> {calcs.body}</p>
+                <p><strong>Soul</strong> {calcs.soul}</p>
               </Content>
 
             </Columns.Column>
             <Columns.Column>
               <Form.Label>Calculations</Form.Label>
               <Content>
-                Stuff stuff
+                <p><strong>Folder</strong> {calcs.folder}</p>
+                <p><strong>Health</strong> {calcs.health}</p>
+                <p><strong>Capacity</strong> {calcs.capacity}</p>
               </Content>
 
             </Columns.Column>
