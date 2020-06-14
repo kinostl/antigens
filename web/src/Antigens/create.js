@@ -14,25 +14,24 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import arrayMove from 'array-move';
 
 function App() {
-  const [stats, setStats] = useState([
-    {
-      'stat': 'Mind',
-      'color': '#3298dc',
-    },
-    {
-      'stat': 'Body',
-      'color': '#f14668',
-    },
-    {
-      'stat': 'Soul',
-      'color': '#48c774',
-    }
-  ])
-
   const [calcs, setCalcs] = useState({
     mind: 3, body: 2, soul: 1,
     folder: 6, health: 6, capacity: 2
   })
+
+  const setArray = (body, mind, soul, antigen) => {
+    let acc={}
+    acc.body=body;
+    acc.health = body*3;
+    acc.mind=mind;
+    acc.folder = mind*2;
+    acc.soul=soul;
+    acc.capacity = soul*2;
+    acc.antigen = antigen;
+
+    setCalcs(acc)
+  }
+
   return (
     <div>
       <Section>
@@ -49,61 +48,12 @@ function App() {
               <Form.Field>
                 <Form.Label>Stats</Form.Label>
                 <Form.Control>
-                  <DragDropContext onDragEnd={(res) => {
-                    if (!res.destination) {
-                      return;
-                    }
-                    let newStats = arrayMove(stats, res.source.index, res.destination.index);
-                    let newCalcs=newStats.reduce((acc, curr, idx)=>{
-                      if(curr.stat==='Body'){
-                        acc.body = 3-idx;
-                        acc.health = acc.body*3;
-                      }
-                      if(curr.stat==='Mind'){
-                        acc.mind = 3-idx;
-                        acc.folder = acc.mind*2;
-                      }
-                      if(curr.stat==='Soul'){
-                        acc.soul = 3-idx;
-                        acc.capacity = acc.soul*2;
-                      }
-                      return acc
-                    },{})
-
-
-                    setStats(newStats)
-                    setCalcs(newCalcs)
-                  }}>
-                    <Droppable droppableId="droppable">
-                      {(provided, snapshot) => (
-                        <div
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {stats.map((item, index) => (
-                            <Draggable key={item.stat} draggableId={item.stat} index={index}>
-                              {(provided, snapshot) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                >
-                                  <Box
-                                    style={{
-                                      backgroundColor: item.color,
-                                      color: 'white'
-                                    }}>
-                                    {item.stat}
-                                  </Box>
-                                </div>
-                              )}
-                            </Draggable>
-                          ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  </DragDropContext>
+                  <Button onClick={()=>setArray(3,2,1,'mettaur')}>Mettaur</Button>
+                  <Button onClick={()=>setArray(2,1,3,'bunny')}>Bunny</Button>
+                  <Button onClick={()=>setArray(1,3,2,'cannodumb')}>Cannodumb</Button>
+                  <Button onClick={()=>setArray(1,2,3,'fishy')}>Fishy</Button>
+                  <Button onClick={()=>setArray(2,3,1,'spooky')}>Spooky</Button>
+                  <Button onClick={()=>setArray(3,1,2,'ratty')}>Ratty</Button>
                 </Form.Control>
               </Form.Field>
             </Columns.Column>

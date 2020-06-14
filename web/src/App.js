@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Section, Container, Hero, Heading, Navbar } from 'react-bulma-components';
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Switch,
   Route,
   Link,
@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import Home from './Home';
 import Landing from './Landing';
-import CreateAntigen from './Antigens/create';
+import Antigens from './Antigens/index';
 
 function SwitchMenu() {
   const [menuIsActive, toggleMenuIsActive] = useState(false);
@@ -27,7 +27,7 @@ function SwitchMenu() {
       </Navbar.Brand>
       <Navbar.Menu className={menuIsActive ? 'is-active' : ''}>
         <Navbar.Item href="#">
-          <Link to="/antigens/create">Antigens</Link>
+          <Link to="/antigens">Antigens</Link>
         </Navbar.Item>
         <Navbar.Container position="end">
           <Navbar.Item href="#">
@@ -47,9 +47,9 @@ function SwitchMenu() {
         {navBar}
         <Home />
       </Route>
-      <Route exact path="/antigens/create">
+      <Route exact path="/antigens">
         {navBar}
-        <CreateAntigen />
+        <Antigens />
       </Route>
     </Switch>
   )
@@ -57,7 +57,7 @@ function SwitchMenu() {
 function App() {
 
   return (
-    <Router basename="/">
+    <Router basename={process.env.PUBLIC_URL}>
       <SwitchMenu />
     </Router>
   );
