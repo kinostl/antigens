@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/antigens/static/js/main.b6b4c584.chunk.js",
-    "main.js.map": "/antigens/static/js/main.b6b4c584.chunk.js.map",
+    "main.js": "/antigens/static/js/main.143d2a43.chunk.js",
+    "main.js.map": "/antigens/static/js/main.143d2a43.chunk.js.map",
     "runtime-main.js": "/antigens/static/js/runtime-main.f189efe5.js",
     "runtime-main.js.map": "/antigens/static/js/runtime-main.f189efe5.js.map",
     "static/css/2.58c4053f.chunk.css": "/antigens/static/css/2.58c4053f.chunk.css",
-    "static/js/2.5adf4e03.chunk.js": "/antigens/static/js/2.5adf4e03.chunk.js",
-    "static/js/2.5adf4e03.chunk.js.map": "/antigens/static/js/2.5adf4e03.chunk.js.map",
+    "static/js/2.9dc29e79.chunk.js": "/antigens/static/js/2.9dc29e79.chunk.js",
+    "static/js/2.9dc29e79.chunk.js.map": "/antigens/static/js/2.9dc29e79.chunk.js.map",
     "index.html": "/antigens/index.html",
-    "precache-manifest.e124b2b62694f662fddd0a147aa4ac7c.js": "/antigens/precache-manifest.e124b2b62694f662fddd0a147aa4ac7c.js",
+    "precache-manifest.154766454c8012939e1e6727176130e0.js": "/antigens/precache-manifest.154766454c8012939e1e6727176130e0.js",
     "service-worker.js": "/antigens/service-worker.js",
     "static/css/2.58c4053f.chunk.css.map": "/antigens/static/css/2.58c4053f.chunk.css.map",
-    "static/js/2.5adf4e03.chunk.js.LICENSE.txt": "/antigens/static/js/2.5adf4e03.chunk.js.LICENSE.txt"
+    "static/js/2.9dc29e79.chunk.js.LICENSE.txt": "/antigens/static/js/2.9dc29e79.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f189efe5.js",
     "static/css/2.58c4053f.chunk.css",
-    "static/js/2.5adf4e03.chunk.js",
-    "static/js/main.b6b4c584.chunk.js"
+    "static/js/2.9dc29e79.chunk.js",
+    "static/js/main.143d2a43.chunk.js"
   ]
 }
