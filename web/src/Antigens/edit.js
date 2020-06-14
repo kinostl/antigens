@@ -12,19 +12,29 @@ import {
 } from 'react-bulma-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import arrayMove from 'array-move';
+import {
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 
-function App() {
+function App(url) {
   return (
     <div>
       <Section>
         <Container>
           <Heading>SugarSnap</Heading>
+          <Link to={`${url}/view`}>View Profile</Link>
           <Columns>
             <Columns.Column>
               <Form.Field>
                 <Form.Label>Stats</Form.Label>
                 <Form.Control>
-                  Mettaur
+                  <Button>Mettaur</Button>
+                  <Button>Bunny</Button>
+                  <Button>Cannodumb</Button>
+                  <Button>Fishy</Button>
+                  <Button>Spooky</Button>
+                  <Button>Ratty</Button>
                 </Form.Control>
               </Form.Field>
             </Columns.Column>
@@ -49,7 +59,23 @@ function App() {
           </Columns>
           <Columns>
             <Columns.Column>
+              Chips Inventory
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+            </Columns.Column>
+            <Columns.Column>
               Chips Equipped
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+            </Columns.Column>
+            <Columns.Column>
+              AddOns Inventory
+              <Box></Box>
               <Box></Box>
               <Box></Box>
               <Box></Box>

@@ -8,6 +8,7 @@ import {
   useRouteMatch
 } from "react-router-dom";
 import CreateAntigen from './create';
+import EditAntigen from './edit';
 import ViewAntigen from './view';
 
 function App() {
@@ -19,17 +20,18 @@ function App() {
         <Columns.Column size="one-fifth">
           <Menu>
             <Menu.List title="Gerry Gancer Dames">
-              <Menu.List.Item active>
+              <Menu.List.Item active={false}>
                 <Link to={`${url}`}>New Antigen</Link>
               </Menu.List.Item>
-              <Menu.List.Item>
-                <Link to={`${url}/view`}>SugarSnap</Link>
+              <Menu.List.Item active={true}>
+                <Link to={`${url}/edit`}>SugarSnap</Link>
               </Menu.List.Item>
             </Menu.List>
           </Menu>
         </Columns.Column>
         <Columns.Column>
           <Route exact path={path} component={CreateAntigen} />
+          <Route exact path={`${path}/edit`} render={()=>EditAntigen(url)} />
           <Route exact path={`${path}/view`} component={ViewAntigen} />
         </Columns.Column>
       </Columns>
