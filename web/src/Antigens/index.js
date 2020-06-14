@@ -2,16 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 import { Menu, Columns, Button, Section, Container, Hero, Heading, Navbar } from 'react-bulma-components';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  useLocation
+  useRouteMatch
 } from "react-router-dom";
 import CreateAntigen from './create';
 import ViewAntigen from './view';
 
 function App() {
+  let { path, url } = useRouteMatch();
+
   return (
     <div>
       <Columns>
@@ -19,25 +20,17 @@ function App() {
           <Menu>
             <Menu.List title="Gerry Gancer Dames">
               <Menu.List.Item active>
-                <Link to="/antigens">New Antigen</Link>
+                <Link to={`${url}`}>New Antigen</Link>
               </Menu.List.Item>
               <Menu.List.Item>
-                <Link to="/antigens/view">
-                  SugarSnap
-                  </Link>
+                <Link to={`${url}/view`}>SugarSnap</Link>
               </Menu.List.Item>
             </Menu.List>
           </Menu>
         </Columns.Column>
         <Columns.Column>
-          <Route path="antigens/">
-            <CreateAntigen />
-          </Route>
-          <Route path="antigens/view">
-            <div>
-              H
-              </div>
-          </Route>
+          <Route exact path={path} component={CreateAntigen} />
+          <Route exact path={`${path}/view`} component={ViewAntigen} />
         </Columns.Column>
       </Columns>
     </div>

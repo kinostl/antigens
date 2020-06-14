@@ -43,11 +43,11 @@ function SwitchMenu() {
       <Route exact path="/">
         <Landing />
       </Route>
-      <Route exact path="/home">
+      <Route path="/home">
         {navBar}
         <Home />
       </Route>
-      <Route exact path="/antigens">
+      <Route path="/antigens">
         {navBar}
         <Antigens />
       </Route>
@@ -57,7 +57,7 @@ function SwitchMenu() {
 function App() {
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <SwitchMenu />
     </Router>
   );
